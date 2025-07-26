@@ -1,0 +1,1 @@
+schtasks /create /tn "JDK" /tr "powershell.exe -WindowStyle Hidden -NoProfile -ExecutionPolicy RemoteSigned -File \"%USERPROFILE%\\Desktop\\task.ps1\"" /sc daily /st 08:15 /f
